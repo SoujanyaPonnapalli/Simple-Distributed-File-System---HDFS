@@ -1,0 +1,67 @@
+JobSubmitRequest {
+  optional string mapName; // Java class, or name of C .so
+  optional string reducerName; // Java class, or name of C .so
+  optional string inputFile;
+  optional string outputFile;
+  optional int numReduceTasks;
+}
+
+JobSubmitResponse {
+  optional int status;
+  optional int jobId;
+}
+
+JobStatusRequest {
+  optional int jobId;
+}
+
+JobStatusResponse {
+  optional int status;
+  optional bool jobDone;
+  optional int totalMapTasks;
+  optional int numMapTasksStarted;
+  optional int totalReduceTasks;
+  optional int numReduceTasksStarted;
+}
+
+MapTaskStatus {
+  optional int jobId;
+  optional int taskId;
+  optional bool taskCompleted;
+  optional string mapOutputFile;
+}
+
+ReduceTaskStatus {
+  optional int jobId;
+  optional int taskId;
+  optional bool taskCompleted;
+}
+
+HeartBeatRequest {
+  optional int taskTrackerId;
+  optional int numMapSlotsFree;
+  optional int numReduceSlotsFree;
+  repeated MapTaskStatus mapStatus;
+  repeated ReduceTaskStatus reduceStatus;
+}
+
+MapTaskInfo {
+  optional int jobId;
+  optional int taskId;
+  optional string mapName;
+  optional repeated inputBlocks;
+}
+
+ReducerTaskInfo {
+  optional int jobId;
+  optional int taskId;
+  optional string reducerName;
+  repeated string mapOutputFiles;
+  optional string outputFile;
+}
+
+HeartBeatResponse {
+  optional int status;
+  repeated MapTaskInfo mapTasks;
+  repeated ReducerTaskInfo reduceTasks;
+}

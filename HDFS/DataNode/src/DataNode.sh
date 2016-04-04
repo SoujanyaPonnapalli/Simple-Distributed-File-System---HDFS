@@ -1,0 +1,10 @@
+myIp=`hostname -I`
+
+protoc --java_out=../bin/ Result.proto
+javac -d ../bin/ -cp ../bin:../bin/protobuf-java-2.5.0.jar *.java
+cd ../bin
+rmic DataNode
+rmic NameNode
+#cd ../src
+rmiregistry &
+java -cp ../bin:../bin/protobuf-java-2.5.0.jar DataNodeServerCreation $myIp

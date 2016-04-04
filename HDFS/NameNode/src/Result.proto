@@ -1,0 +1,16 @@
+syntax = "proto2";
+
+option java_outer_classname = "ResultProtos";
+option java_package = "com.distributed.systems";
+
+
+message AssignBlockResponse {
+    optional int32 block1 = 1;
+    optional int32 block2 = 2;
+}
+
+message ReadResponse {
+	optional bytes data = 1;
+	optional bool status = 2;
+}
+
